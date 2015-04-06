@@ -32,6 +32,11 @@
 		5CECF9241AA3EEAB00527B8E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CECF9231AA3EEAB00527B8E /* CoreGraphics.framework */; };
 		5CECF9261AA3EEB200527B8E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CECF9251AA3EEB200527B8E /* Foundation.framework */; };
 		5CECF9281AA3EEB700527B8E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CECF9271AA3EEB700527B8E /* AudioToolbox.framework */; };
+		F58504141AD2FF9B003C775B /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58504131AD2FF9B003C775B /* FavoritesTableViewController.swift */; };
+		F58504161AD30497003C775B /* ParseChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58504151AD30497003C775B /* ParseChanges.swift */; };
+		F5986F961AD23B8B00D8BC56 /* ArtistDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5986F951AD23B8B00D8BC56 /* ArtistDetailTableViewController.swift */; };
+		F5FC4CE61ACF5A0300B4AD03 /* Assignment 5 TODOs in Resources */ = {isa = PBXBuildFile; fileRef = F5FC4CE51ACF5A0300B4AD03 /* Assignment 5 TODOs */; };
+		F5FC4CE81ACF63A500B4AD03 /* PieceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FC4CE71ACF63A500B4AD03 /* PieceDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +79,11 @@
 		5CECF9231AA3EEAB00527B8E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		5CECF9251AA3EEB200527B8E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5CECF9271AA3EEB700527B8E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		F58504131AD2FF9B003C775B /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
+		F58504151AD30497003C775B /* ParseChanges.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseChanges.swift; sourceTree = "<group>"; };
+		F5986F951AD23B8B00D8BC56 /* ArtistDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistDetailTableViewController.swift; sourceTree = "<group>"; };
+		F5FC4CE51ACF5A0300B4AD03 /* Assignment 5 TODOs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Assignment 5 TODOs"; sourceTree = "<group>"; };
+		F5FC4CE71ACF63A500B4AD03 /* PieceDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieceDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,11 +145,15 @@
 				5CDE47141A969BFE00ECC507 /* AppDelegate.swift */,
 				5CE1DDA51A9F4271002AA277 /* ArtModel.swift */,
 				5CE1DDA71A9F4C2B002AA277 /* ArtistsViewController.swift */,
+				F5986F951AD23B8B00D8BC56 /* ArtistDetailTableViewController.swift */,
 				5CDE47161A969BFE00ECC507 /* GalleryViewController.swift */,
+				F5FC4CE71ACF63A500B4AD03 /* PieceDetailViewController.swift */,
+				F58504131AD2FF9B003C775B /* FavoritesTableViewController.swift */,
 				5CDE47181A969BFE00ECC507 /* Main.storyboard */,
 				5CDE471B1A969BFE00ECC507 /* Images.xcassets */,
 				5CDE471D1A969BFE00ECC507 /* LaunchScreen.xib */,
 				5CDE47121A969BFE00ECC507 /* Supporting Files */,
+				F58504151AD30497003C775B /* ParseChanges.swift */,
 			);
 			path = "CSE 394 Project 1";
 			sourceTree = "<group>";
@@ -149,6 +163,7 @@
 			children = (
 				5CECF9121AA3EE6600527B8E /* Frameworks */,
 				5CDE47131A969BFE00ECC507 /* Info.plist */,
+				F5FC4CE51ACF5A0300B4AD03 /* Assignment 5 TODOs */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -275,6 +290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CDE471A1A969BFE00ECC507 /* Main.storyboard in Resources */,
+				F5FC4CE61ACF5A0300B4AD03 /* Assignment 5 TODOs in Resources */,
 				5CDE471F1A969BFE00ECC507 /* LaunchScreen.xib in Resources */,
 				5CDE471C1A969BFE00ECC507 /* Images.xcassets in Resources */,
 			);
@@ -297,8 +313,12 @@
 				5CDE47171A969BFE00ECC507 /* GalleryViewController.swift in Sources */,
 				5C54D2F01AA0002000DBBDF6 /* AddPieceViewController.swift in Sources */,
 				5CDE47151A969BFE00ECC507 /* AppDelegate.swift in Sources */,
+				F58504141AD2FF9B003C775B /* FavoritesTableViewController.swift in Sources */,
 				5CE1DDA61A9F4271002AA277 /* ArtModel.swift in Sources */,
+				F58504161AD30497003C775B /* ParseChanges.swift in Sources */,
+				F5FC4CE81ACF63A500B4AD03 /* PieceDetailViewController.swift in Sources */,
 				5CE1DDA81A9F4C2B002AA277 /* ArtistsViewController.swift in Sources */,
+				F5986F961AD23B8B00D8BC56 /* ArtistDetailTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,15 +445,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Parse",
 					"$(PROJECT_DIR)",
-					/Users/HotMustard/ASU/CSE,
-					394/CSE,
-					394,
-					Assignment,
-					4/Parse,
-					"$(PROJECT_DIR)/CSE",
-					394,
-					Project,
-					1/Parse,
 				);
 				INFOPLIST_FILE = "CSE 394 Project 1/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -449,15 +460,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Parse",
 					"$(PROJECT_DIR)",
-					/Users/HotMustard/ASU/CSE,
-					394/CSE,
-					394,
-					Assignment,
-					4/Parse,
-					"$(PROJECT_DIR)/CSE",
-					394,
-					Project,
-					1/Parse,
 				);
 				INFOPLIST_FILE = "CSE 394 Project 1/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

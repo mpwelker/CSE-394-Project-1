@@ -11,15 +11,15 @@ import Parse
 
 class ArtistsViewController : UITableViewController {
     
-    var artists = NSMutableArray()
-    var pieces = [Int]()
+    var artistNames = NSMutableArray()
+    var numOfPieces = [Int]()
     let query = PFQuery(className: "Artwork")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        initArtists()
+        //initArtists()
         
         /*
         query.orderByAscending("artist").findObjectsInBackgroundWithBlock {
@@ -81,40 +81,64 @@ class ArtistsViewController : UITableViewController {
         
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(animated: Bool) {
+        
+        // reload automatically if there have been changes to the database
+        if ParseChanges.sharedInstance.artistsDidChange {
+            ParseChanges.sharedInstance.artistsDidChange = false
+            self.refreshTable(self)
+        }
     }
     
     // Construct the array of artists and also the array of counts for their respective pieces
     func initArtists() {
-        var temp = NSMutableArray()
-        for piece in query.orderByAscending("artist").findObjects() {
-            if let piece = piece as? PFObject {
-                if (artists.containsObject(piece["artist"])) {
-                    pieces[artists.indexOfObject(piece["artist"])] =
-                        (pieces[artists.indexOfObject(piece["artist"])] as Int) + 1
-                } else {
-                    artists.addObject(piece["artist"])
-                    pieces.append(1)
-                }
-            }
-        }
+        self.refreshTable(self)
+        
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+//            for piece in self.query.orderByAscending("artist").findObjects() {
+//                if let piece = piece as? PFObject {
+//                    if (self.artists.containsObject(piece["artist"])) {
+//                        self.pieces[self.artists.indexOfObject(piece["artist"])] =
+//                            (self.pieces[self.artists.indexOfObject(piece["artist"])] as Int) + 1
+//                    } else {
+//                        self.artists.append(piece)
+//                        self.pieces.append(1)
+//                    }
+//                }
+//            }
+//            dispatch_async(dispatch_get_main_queue(), {
+//                self.tableView.reloadData()
+//            })
+//        })
         //NSLog("%@", artists)
         //NSLog("%@", pieces)
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
-        return 1
-    }
-    
     // Length of transaction list tied to length of transactions array
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return artists.count
+        return artistNames.count
+    }
+    
+    @IBAction func refreshTable(sender: AnyObject) {
+        self.query.orderByAscending("artist")
+        (sender as? UIRefreshControl)?.beginRefreshing()
+        self.query.findObjectsInBackgroundWithBlock { (objects: [AnyObject]!, error: NSError!) -> Void in
+            if error == nil {
+                self.artistNames.removeAllObjects()
+                self.numOfPieces.removeAll(keepCapacity: false)
+                for object in objects as [PFObject] {
+                    if self.artistNames.containsObject(object["artist"]) {
+                        let index = self.artistNames.indexOfObject(object["artist"])
+                        self.numOfPieces[index]++
+                    } else {
+                        self.artistNames.addObject(object["artist"] as NSString)
+                        self.numOfPieces.append(1)
+                    }
+                }
+                self.tableView.reloadData()
+                (sender as? UIRefreshControl)?.endRefreshing()
+            }
+        }
     }
     
     // Contruct the cell with transaction, amount, and remaining balance.
@@ -122,10 +146,27 @@ class ArtistsViewController : UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
         
-        cell.textLabel?.text = artists[indexPath.row] as NSString
-        cell.detailTextLabel?.text = String(pieces[indexPath.row])
+        cell.textLabel?.text = artistNames[indexPath.row] as NSString
+        cell.detailTextLabel?.text = String(numOfPieces[indexPath.row])
         
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        // just a subtle effect
+        cell.alpha = 0.0
+        UIView.animateWithDuration(0.3) {
+            cell.alpha = 1.0
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        let dest = segue.destinationViewController as ArtistDetailTableViewController
+        if let indexPath = self.tableView.indexPathForSelectedRow() {
+            dest.artistName = artistNames[indexPath.row] as NSString
+        }
     }
     
 }
