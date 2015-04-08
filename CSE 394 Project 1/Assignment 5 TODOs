@@ -1,0 +1,40 @@
+DONE:
+1) Add a detail view to show the information for a selected piece.
+    - Added a detail view for individual art pieces (PieceDetailViewController)
+2) Add a view to list the pieces for a selected artist.
+    - Added a view to view all pieces for a particular artist (ArtistDetailTableViewController)
+3) Add a view to group the pieces by another property (location, exhibit, date, favorite...)
+    - Added a "Favorites" tab to view all pieces "favorited" by the user (FavoritesTableViewController)
+4) Something else you’d like to add? Get creative!
+    - Added some multithreading to Parse calls
+    - Added "fade" effect to cells downloaded from Parse
+    - Added a "pull-to-refresh" feature to ArtistViewController
+
+DB FIELDS:
+artist: String - REQUIRED
+favorite: Bool - REQUIRED
+title: String - REQUIRED
+date: NSDate
+exhibit: String
+image: PFFile
+location: String
+medium: String
+notes: String
+year: Int
+
+REFERENCES:
+1. No image available photo:
+    http://img2.wikia.nocookie.net/__cb20140118173446/wiisportsresortwalkthrough/images/6/60/No_Image_Available.png
+
+2. Favorite not active photo:
+    https://www.iconfinder.com/icons/172598/thumb_up_icon#size=512
+
+3. Favorite active photo:
+    https://www.iconfinder.com/icons/174964/thumbs_up_icon#size=512
+
+4. Artists tab icon:
+    http://www.flaticon.com/free-icon/bohemian-artist-man-with-hat-and-moustache_56875
+
+5. Gallery tab icon:
+    http://www.flaticon.com/free-icon/pictures_2409
+

@@ -21,26 +21,22 @@ class GalleryViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        artwork = query.findObjects()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
-        return 1
+    
+    override func viewWillAppear(animated: Bool) {
+        if ParseChanges.sharedInstance.galleryDidChange {
+            ParseChanges.sharedInstance.galleryDidChange = false
+            self.query.findObjectsInBackgroundWithBlock { (objects: [AnyObject]!, error: NSError!) -> Void in
+                if error == nil {
+                    self.artwork = objects
+                    self.tableView.reloadData()
+                }
+            }
+        }
     }
     
     // Length of transaction list tied to length of transactions array
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
         return artwork.count
     }
     
@@ -48,11 +44,27 @@ class GalleryViewController: UITableViewController {
     // Also alternate background colors and handle text highlights.
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
-
+        
         cell.textLabel?.text = (artwork[indexPath.row]["title"] as NSString)
         cell.detailTextLabel?.text = (artwork[indexPath.row]["artist"] as NSString)
 
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        // just a subtle effect
+        cell.alpha = 0.0
+        UIView.animateWithDuration(0.3) {
+            cell.alpha = 1.0
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let dest = segue.destinationViewController as PieceDetailViewController
+        if let indexPath = self.tableView.indexPathForSelectedRow() {
+            dest.piece = artwork[indexPath.row] as PFObject
+        }
     }
 
 }

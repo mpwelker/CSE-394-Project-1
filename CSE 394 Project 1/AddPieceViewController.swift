@@ -55,7 +55,12 @@ class AddPieceViewController : UIViewController {
                 obj["year"] = txtYear.text.toInt()
             }
             
-            obj.saveInBackgroundWithBlock({ (sucess: Bool, error: NSError!) -> Void in })
+            obj.saveInBackgroundWithBlock({ (sucess: Bool, error: NSError!) -> Void in
+                if error == nil {
+                    ParseChanges.sharedInstance.galleryDidChange = true
+                    ParseChanges.sharedInstance.artistsDidChange = true
+                }
+            })
             
             self.dismissViewControllerAnimated(true, completion: nil)
         }
